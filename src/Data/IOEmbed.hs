@@ -1,30 +1,44 @@
+{-# LANGUAGE TemplateHaskellQuotes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE PolyKinds #-}
 
-module Data.IOEmbed (embedIO, embedIOLit) where
+
+module Data.IOEmbed (embedIO, embedIOLit, toLitE) where
 
 import Language.Haskell.TH
-import Data.Typeable (Typeable, Proxy (..), typeRep)
-import Data.Word (Word8)
-import Language.Haskell.TH.Syntax (Bytes)
-import Unsafe.Coerce (unsafeCoerce)
+import Data.Typeable (Typeable, Proxy (..), typeRep, cast)
+import qualified Data.ByteString as B8
+import Data.ByteString(ByteString)
+import Data.ByteString.Internal (ByteString(..))
+import Data.Maybe(fromJust)
+import System.IO.Unsafe (unsafePerformIO)
+import Data.ByteString.Unsafe (unsafePackAddressLen)
 
-embedIO :: forall a. Typeable a => IO a -> Q Exp
-embedIO = embedIOLit . fmap toLit
+-- | Embeds an `IO` a value - as long as `a` is `Char`, `String`,  'Integer', `Rational`, or `ByteString`.
+embedIO :: forall a.  Typeable a => IO a -> Q Exp
+embedIO = runIO . fmap toLitE
 
+-- | If you want to embed something else, you can manually generate an `IO` `Lit` and use this function. 
 embedIOLit :: IO Lit -> Q Exp
-embedIOLit io = do
-  litResult <- runIO io
-  return $ LitE litResult
+embedIOLit = runIO . fmap LitE
 
-toLit :: forall a. Typeable a => a -> Lit
-toLit x
-  | typeRep' == typeRep (Proxy :: Proxy Char)     = CharL $ unsafeCoerce x -- unsafeCoerce is safe* here since we type-checked manually.
-  | typeRep' == typeRep (Proxy :: Proxy String)   = StringL $ unsafeCoerce x
-  | typeRep' == typeRep (Proxy :: Proxy Integer)  = IntegerL $ unsafeCoerce x
-  | typeRep' == typeRep (Proxy :: Proxy Rational) = RationalL $ unsafeCoerce x
-  | typeRep' == typeRep (Proxy :: Proxy [Word8])  = StringPrimL $ unsafeCoerce x
-  | typeRep' == typeRep (Proxy :: Proxy Bytes)    = BytesPrimL $ unsafeCoerce x
-  | otherwise = error $ "Type " <> show typeRep' <> " is not embeddable"
-                <> "\nEmbeddable types are: Char, String, Integer, Rational, [Word8], Bytes"
+-- | Converts `Char`, `String`,  'Integer', `Rational`, or `ByteString` to a literal expression.
+toLitE :: forall a. Typeable a => a -> Exp
+toLitE x
+  | typeRep' == typeRep (Proxy :: Proxy Char)       = LitE $ CharL     $ fromJust $ cast x
+  | typeRep' == typeRep (Proxy :: Proxy String)     = LitE $ StringL   $ fromJust $ cast x
+  | typeRep' == typeRep (Proxy :: Proxy Integer)    = LitE $ IntegerL  $ fromJust $ cast x
+  | typeRep' == typeRep (Proxy :: Proxy Rational)   = LitE $ RationalL $ fromJust $ cast x
+  -- Special types
+  | typeRep' == typeRep (Proxy :: Proxy ByteString) = let
+                                                        bs = fromJust $ cast x 
+                                                        PS ptr off sz = bs
+                                                      in VarE 'unsafePerformIO
+                                                      `AppE`  (VarE 'unsafePackAddressLen `AppE` LitE (IntegerL $ fromIntegral $ B8.length bs)
+                                                      `AppE` LitE (bytesPrimL $ mkBytes ptr (fromIntegral off) (fromIntegral sz)))
+                                                        
+
+  | otherwise = error $ "Type " <> show typeRep' <> " is not embeddable" <>
+                        "\nEmbeddable types are: Char, String, Integer, Rational, ByteString"
   where typeRep' = typeRep (Proxy :: Proxy a)
+
+
