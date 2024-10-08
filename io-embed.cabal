@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 
-name:           IOEmbed
+name:           io-embed
 version:        0.1.0.0
 synopsis:       Use Template Haskell to embed the result of an IO computation.
 description:    Please see the README on GitHub at <https://github.com/gtollini/IOEmbed#readme>
@@ -31,9 +31,9 @@ library
       Data.IOEmbed
       Lib
   other-modules:
-      Paths_IOEmbed
+      Paths_io_embed
   autogen-modules:
-      Paths_IOEmbed
+      Paths_io_embed
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -48,16 +48,16 @@ test-suite IOEmbed-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_IOEmbed
+      Paths_io_embed
   autogen-modules:
-      Paths_IOEmbed
+      Paths_io_embed
   hs-source-dirs:
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      IOEmbed
-    , base >=4.7 && <5
+      base >=4.7 && <5
     , bytestring >=0.12.1 && <0.13
     , hspec >=2.11.9 && <2.12
+    , io-embed
     , template-haskell >=2.21.0 && <2.22
   default-language: Haskell2010
