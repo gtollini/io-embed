@@ -23,7 +23,7 @@ description:         Please see the README on GitHub at <https://github.com/gtol
 dependencies:
 - base >= 4.7 && < 5
 - bytestring >= 0.12.1 && < 0.13
-- template-haskell >= 2.21.0 && < 2.22
+- template-haskell >= 2.21.0 && < 2.23
 - hspec >= 2.11.9 && < 2.12
 
 ghc-options:
