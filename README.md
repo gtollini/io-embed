@@ -1,5 +1,5 @@
 # IOEmbed
-This library allows you to embed the result of an `IO` computation - as long as said computation is one of: `Char`, `String`, `Integer`, `Rational`, or `ByteString`.
+This library allows you to embed the result of an `IO` computation at compile time - as long as said computation is internally typed as: `Char`, `String`, `Integer`, `Rational`, or `ByteString`.
 
 ## Installation
 This package is available through both Cabal and Stackage.
@@ -18,5 +18,5 @@ Alternativelly, you could use `IOEmbedLit` by hand-crafting a [`Lit`](https://ha
 ```haskell
 {-# LANGUAGE TemplateHaskell #-}
 
-embeddedWord = $(embedIOLit $ StringL <$> readFile "./README.md")
+fileContentL = $(embedIOLit $ StringL <$> readFile "./README.md")
 ```
