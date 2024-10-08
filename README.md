@@ -1,4 +1,4 @@
-# IOEmbed
+# io-embed
 This library allows you to embed the result of an `IO` computation at compile time - as long as said computation is internally typed as: `Char`, `String`, `Integer`, `Rational`, or `ByteString`.
 
 ## Installation
