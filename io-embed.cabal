@@ -7,10 +7,10 @@ cabal-version: 2.2
 name:           io-embed
 version:        0.1.0.0
 synopsis:       Use Template Haskell to embed the result of an IO computation.
-description:    Please see the README on GitHub at <https://github.com/gtollini/IOEmbed#readme>
+description:    Please see the README on GitHub at <https://github.com/gtollini/io-embed#readme>
 category:       bsd3, template-haskell, data, library
-homepage:       https://github.com/gtollini/IOEmbed#readme
-bug-reports:    https://github.com/gtollini/IOEmbed/issues
+homepage:       https://github.com/gtollini/io-embed#readme
+bug-reports:    https://github.com/gtollini/io-embed/issues
 author:         Gabriel Tollini
 maintainer:     gabrieltollini@hotmail.com
 copyright:      2024 Gabriel Tollini
@@ -24,7 +24,7 @@ extra-doc-files:
 
 source-repository head
   type: git
-  location: https://github.com/gtollini/IOEmbed
+  location: https://github.com/gtollini/io-embed
 
 library
   exposed-modules:
@@ -44,7 +44,7 @@ library
     , template-haskell >=2.21.0 && <2.22
   default-language: Haskell2010
 
-test-suite IOEmbed-test
+test-suite io-embed-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:

@@ -1,6 +1,6 @@
 name:                io-embed
 version:             0.1.0.0
-github:              "gtollini/IOEmbed"
+github:              "gtollini/io-embed"
 license:             BSD-3-Clause
 author:              "Gabriel Tollini"
 maintainer:          "gabrieltollini@hotmail.com"
@@ -18,7 +18,7 @@ category:            bsd3, template-haskell, data, library
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/gtollini/IOEmbed#readme>
+description:         Please see the README on GitHub at <https://github.com/gtollini/io-embed#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -41,7 +41,7 @@ library:
   source-dirs: src
 
 tests:
-  IOEmbed-test:
+  io-embed-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
