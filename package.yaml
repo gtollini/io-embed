@@ -1,30 +1,30 @@
 name:                IOEmbed
 version:             0.1.0.0
-github:              "githubuser/IOEmbed"
+github:              "gtollini/IOEmbed"
 license:             BSD-3-Clause
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2024 Author name here"
+author:              "Gabriel Tollini"
+maintainer:          "gabrieltollini@hotmail.com"
+copyright:           "2024 Gabriel Tollini"
 
 extra-source-files:
 - README.md
+extra-doc-files:
 - CHANGELOG.md
 
 # Metadata used when publishing your package
-# synopsis:            Short description of your package
-# category:            Web
+synopsis:            Use Template Haskell to embed the result of an IO computation. 
+category:            bsd3, template-haskell, data, library 
 
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/IOEmbed#readme>
+description:         Please see the README on GitHub at <https://github.com/gtollini/IOEmbed#readme>
 
 dependencies:
 - base >= 4.7 && < 5
-- template-haskell
-- bytestring
-- hspec
-
+- bytestring >= 0.12.1 && < 0.13
+- template-haskell >= 2.21.0 && < 2.22
+- hspec >= 2.11.9 && < 2.12
 ghc-options:
 - -Wall
 - -Wcompat
