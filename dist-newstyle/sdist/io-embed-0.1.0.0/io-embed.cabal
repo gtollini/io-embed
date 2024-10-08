@@ -29,6 +29,7 @@ source-repository head
 library
   exposed-modules:
       Data.IOEmbed
+      Lib
   other-modules:
       Paths_io_embed
   autogen-modules:

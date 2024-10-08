@@ -2,7 +2,7 @@
 This library allows you to embed the result of an `IO` computation at compile time - as long as said computation is internally typed as: `Char`, `String`, `Integer`, `Rational`, or `ByteString`.
 
 ## Installation
-This package is available through both [Cabal](https://hackage.haskell.org/package/io-embed-0.1.0.0) and Stackage.
+This package is available through both Cabal and Stackage.
 
 ## Usage
 Here's how you could embed the contents of a file using `IOEmbed`:
