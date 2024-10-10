@@ -14,10 +14,20 @@ import System.IO.Unsafe (unsafePerformIO)
 import Data.ByteString.Unsafe (unsafePackAddressLen)
 
 -- | Embeds an `IO` a value - as long as `a` is `Char`, `String`,  'Integer', `Rational`, or `ByteString`.
+-- 
+-- > {-# LANGUAGE TemplateHaskell #-}
+-- >
+-- > fileContent = $(embedIO $ readFile "./README.md")
+-- 
 embedIO :: forall a.  Typeable a => IO a -> Q Exp
 embedIO = runIO . fmap toLitE
 
 -- | If you want to embed something else, you can manually generate an `IO` `Lit` and use this function. 
+-- 
+-- > {-# LANGUAGE TemplateHaskell #-}
+-- >
+-- > fileContentL = $(embedIOLit $ StringL <$> readFile "./README.md")
+-- 
 embedIOLit :: IO Lit -> Q Exp
 embedIOLit = runIO . fmap LitE
 
