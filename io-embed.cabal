@@ -5,7 +5,7 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           io-embed
-version:        0.1.0.0
+version:        0.1.0.1
 synopsis:       Use Template Haskell to embed the result of an IO computation.
 description:    Please see the README on GitHub at <https://github.com/gtollini/io-embed#readme>
 category:       bsd3, template-haskell, data, library
